@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductController {
@@ -23,13 +24,11 @@ public class ProductController {
     public ResponseEntity<Product> createProduct(@RequestBody Product product){
         return ResponseEntity.ok(productoRepo.save(product));
     }
-    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id){
         productoRepo.deleteById(id);
         return ResponseEntity.ok(null);
     }
-
 
 
 
