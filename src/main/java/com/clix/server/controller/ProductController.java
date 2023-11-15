@@ -42,5 +42,20 @@ public class ProductController {
         productoRepo.deleteById(id);
         return ResponseEntity.ok(null);
     }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+        Optional<Product> productOpt = productoRepo.findById(id);
+        if (productOpt.isPresent()) {
+            Product productFound = productOpt.get();
+            productFound.setName(product.getName());
+            productFound.setPrice(product.getPrice());
+            return ResponseEntity.ok(productoRepo.save(productFound));
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    
 
 }
